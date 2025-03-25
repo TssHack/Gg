@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رزومه شخصی</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3a8a, #9333ea);
+        }
+        .swipe-container {
+            transition: transform 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="h-screen flex items-center justify-center text-white">
+    <div class="w-full max-w-md p-4 relative">
+        <!-- منوی بالا -->
+        <div class="absolute top-4 right-4">
+            <button class="text-2xl">☰</button>
+        </div>
+
+        <!-- آواتار و نام -->
+        <div class="flex flex-col items-center">
+            <img src="https://via.placeholder.com/100" class="w-24 h-24 rounded-full border-4 border-white" alt="Avatar">
+            <h1 class="text-2xl font-bold mt-2">Naxeleditz</h1>
+        </div>
+
+        <!-- اسلایدر تصاویر -->
+        <div class="absolute left-4 top-1/2 transform -translate-y-1/2 flex flex-col items-center">
+            <button class="mb-2 text-xl" onclick="prevSlide()">▲</button>
+            <div class="w-16 h-24 bg-black rounded-lg overflow-hidden flex items-center justify-center">
+                <img id="slider-img" src="https://via.placeholder.com/60" alt="Slide">
+            </div>
+            <button class="mt-2 text-xl" onclick="nextSlide()">▼</button>
+        </div>
+
+        <!-- محتوای قابل سواپ -->
+        <div class="mt-6 overflow-hidden">
+            <div class="swipe-container flex w-full">
+                <div class="w-full text-center">📌 اطلاعات تلگرام</div>
+                <div class="w-full text-center">📷 اطلاعات اینستاگرام</div>
+                <div class="w-full text-center">🎥 اطلاعات یوتیوب</div>
+            </div>
+        </div>
+
+        <!-- دکمه‌های کنترلی -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4">
+            <button class="text-xl">❤️</button>
+            <button class="text-xl">ℹ️</button>
+            <button class="text-xl">⚙️</button>
+        </div>
+    </div>
+
+    <script>
+        let index = 0;
+        const container = document.querySelector('.swipe-container');
+        const images = [
+            "https://via.placeholder.com/60",
+            "https://via.placeholder.com/60/ff0000",
+            "https://via.placeholder.com/60/00ff00"
+        ];
+        let imgIndex = 0;
+        
+        function nextSlide() {
+            imgIndex = (imgIndex + 1) % images.length;
+            document.getElementById('slider-img').src = images[imgIndex];
+        }
+
+        function prevSlide() {
+            imgIndex = (imgIndex - 1 + images.length) % images.length;
+            document.getElementById('slider-img').src = images[imgIndex];
+        }
+
+        document.body.addEventListener('keydown', (e) => {
+            if (e.key === "ArrowRight" && index < 2) {
+                index++;
+            } else if (e.key === "ArrowLeft" && index > 0) {
+                index--;
+            }
+            container.style.transform = `translateX(-${index * 100}%)`;
+        });
+    </script>
+</body>
+</html>
