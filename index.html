@@ -3,84 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رزومه شخصی</title>
+    <title>NAXE LeditZ</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
-        body {
-            background: linear-gradient(135deg, #1e3a8a, #9333ea);
+        @font-face {
+            font-family: "IranYekan";
+            src: url("fonts/IranYekan.woff2") format("woff2");
         }
-        .swipe-container {
-            transition: transform 0.5s ease-in-out;
+        body {
+            background: url("bg.jpg") no-repeat center center;
+            background-size: cover;
+            font-family: "IranYekan", sans-serif;
+            overflow: hidden;
+        }
+        .menu-btn {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .menu-btn:hover {
+            transform: scale(1.1);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(-20px);
         }
     </style>
 </head>
-<body class="h-screen flex items-center justify-center text-white">
-    <div class="w-full max-w-md p-4 relative">
-        <!-- منوی بالا -->
-        <div class="absolute top-4 right-4">
-            <button class="text-2xl">☰</button>
-        </div>
-
-        <!-- آواتار و نام -->
-        <div class="flex flex-col items-center">
-            <img src="https://via.placeholder.com/100" class="w-24 h-24 rounded-full border-4 border-white" alt="Avatar">
-            <h1 class="text-2xl font-bold mt-2">Naxeleditz</h1>
-        </div>
-
-        <!-- اسلایدر تصاویر -->
-        <div class="absolute left-4 top-1/2 transform -translate-y-1/2 flex flex-col items-center">
-            <button class="mb-2 text-xl" onclick="prevSlide()">▲</button>
-            <div class="w-16 h-24 bg-black rounded-lg overflow-hidden flex items-center justify-center">
-                <img id="slider-img" src="https://via.placeholder.com/60" alt="Slide">
+<body class="relative min-h-screen flex flex-col items-center justify-center text-white">
+    
+    <!-- منوی همبرگری با انیمیشن -->
+    <div x-data="{ open: false }" class="absolute top-5 right-5">
+        <svg @click="open = !open" class="w-10 h-10 text-white menu-btn" viewBox="0 0 100 80" fill="currentColor">
+            <rect width="100" height="15"></rect>
+            <rect y="30" width="100" height="15"></rect>
+            <rect y="60" width="100" height="15"></rect>
+        </svg>
+        <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-56 bg-black bg-opacity-80 rounded-lg shadow-lg p-4">
+            <div class="flex items-center space-x-3">
+                <svg class="w-8 h-8 text-blue-400" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18.5A8.5 8.5 0 1112 3.5a8.5 8.5 0 010 17zm-1.25-9h2.5V17h-2.5V11.5zM12 7a1.5 1.5 0 11-1.5 1.5A1.5 1.5 0 0112 7z"/>
+                </svg>
+                <p class="text-lg font-bold">علی بیگی</p>
             </div>
-            <button class="mt-2 text-xl" onclick="nextSlide()">▼</button>
-        </div>
-
-        <!-- محتوای قابل سواپ -->
-        <div class="mt-6 overflow-hidden">
-            <div class="swipe-container flex w-full">
-                <div class="w-full text-center">📌 اطلاعات تلگرام</div>
-                <div class="w-full text-center">📷 اطلاعات اینستاگرام</div>
-                <div class="w-full text-center">🎥 اطلاعات یوتیوب</div>
+            <div class="flex items-center space-x-3 mt-2">
+                <svg class="w-6 h-6 text-green-400" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 15.5a16.88 16.88 0 01-6.28-1.28 10.56 10.56 0 01-4.14-2.73 10.56 10.56 0 01-2.73-4.14A16.88 16.88 0 015 4l2.5-1A2.5 2.5 0 0110 4.5c0 1.26.55 2.45 1.5 3.5A10.54 10.54 0 0115 10.5c1.05.95 2.24 1.5 3.5 1.5A2.5 2.5 0 0121 15l-1 2.5a16.88 16.88 0 01-5.5 2z"/>
+                </svg>
+                <p class="text-sm">09123456789</p>
             </div>
-        </div>
-
-        <!-- دکمه‌های کنترلی -->
-        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4">
-            <button class="text-xl">❤️</button>
-            <button class="text-xl">ℹ️</button>
-            <button class="text-xl">⚙️</button>
+            <div class="flex items-center space-x-3 mt-2">
+                <svg class="w-6 h-6 text-red-400" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2a10 10 0 00-10 10 10 10 0 0010 10 10 10 0 0010-10 10 10 0 00-10-10zm1 15h-2v-6h2v6zm-1-8a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/>
+                </svg>
+                <p class="text-sm">ali@example.com</p>
+            </div>
         </div>
     </div>
 
+    <!-- پروفایل -->
+    <div class="text-center fade-in">
+        <img src="profile.jpg" alt="Profile" class="w-24 h-24 rounded-full border-4 border-white mx-auto">
+        <h1 class="mt-2 text-xl font-bold">Welcome</h1>
+        <h2 class="text-lg">NAXE LeditZ</h2>
+    </div>
+
+    <!-- سواپ تصاویر (اسلایدر سه‌بعدی) -->
+    <div class="mt-6 w-48 relative fade-in">
+        <button class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 p-2 rounded-full">▲</button>
+        <div class="overflow-hidden h-48 flex flex-col items-center justify-center bg-black bg-opacity-60 rounded-lg">
+            <img src="image1.jpg" alt="Swap Image" class="w-40 h-40 rounded-md">
+        </div>
+        <button class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 p-2 rounded-full">▼</button>
+    </div>
+
     <script>
-        let index = 0;
-        const container = document.querySelector('.swipe-container');
-        const images = [
-            "https://via.placeholder.com/60",
-            "https://via.placeholder.com/60/ff0000",
-            "https://via.placeholder.com/60/00ff00"
-        ];
-        let imgIndex = 0;
-        
-        function nextSlide() {
-            imgIndex = (imgIndex + 1) % images.length;
-            document.getElementById('slider-img').src = images[imgIndex];
-        }
-
-        function prevSlide() {
-            imgIndex = (imgIndex - 1 + images.length) % images.length;
-            document.getElementById('slider-img').src = images[imgIndex];
-        }
-
-        document.body.addEventListener('keydown', (e) => {
-            if (e.key === "ArrowRight" && index < 2) {
-                index++;
-            } else if (e.key === "ArrowLeft" && index > 0) {
-                index--;
-            }
-            container.style.transform = `translateX(-${index * 100}%)`;
-        });
+        // انیمیشن‌های GSAP
+        gsap.to(".fade-in", { opacity: 1, y: 0, duration: 1, ease: "power3.out", stagger: 0.3 });
     </script>
+
 </body>
 </html>
